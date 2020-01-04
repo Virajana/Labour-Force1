@@ -15,7 +15,6 @@ import routes from "routes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/rtlStyle.js";
 
-import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
 let ps;
@@ -46,13 +45,10 @@ export default function RTL({ ...rest }) {
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
   // states and functions
-  const [image, setImage] = React.useState(bgImage);
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleImageClick = image => {
-    setImage(image);
-  };
+
   const handleColorClick = color => {
     setColor(color);
   };
@@ -98,7 +94,6 @@ export default function RTL({ ...rest }) {
         routes={routes}
         logoText={"الإبداعية تيم"}
         logo={logo}
-        image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
         color={color}

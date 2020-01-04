@@ -17,7 +17,10 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
-
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 import {
   dailySalesChart,
@@ -30,7 +33,13 @@ import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js"
 const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
+  var age=[]
   const classes = useStyles();
+
+  function handleChange() {
+
+  }
+
   return (
     <div>
       {/*<GridContainer>*/}
@@ -110,59 +119,63 @@ export default function Dashboard() {
       {/*  </GridItem>*/}
       {/*</GridContainer>*/}
 
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={8}>
-            <Card>
-              <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>Enter the details</h4>
-                <p className={classes.cardCategoryWhite}>details</p>
-              </CardHeader>
-              <CardBody>
-                <GridContainer>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={8}>
+          <Card>
+            <CardHeader color="primary">
+              <h4 className={classes.cardTitleWhite}>Enter the details</h4>
+              <p className={classes.cardCategoryWhite}>details</p>
+            </CardHeader>
+            <CardBody>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={3}>
+                  <CustomInput
+                    labelText="End User"
+                    id="enduser"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                  />
+                </GridItem>
 
+                <GridItem xs={12} sm={12} md={3}>
+                  <FormControl variant="filled">
+                    <InputLabel id="demo-simple-select-filled-label">
+                      Age
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-filled-label"
+                      id="demo-simple-select-filled"
+                      value={age}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={10}>Ten</MenuItem>
+                      <MenuItem value={20}>Twenty</MenuItem>
+                      <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                  </FormControl>
+                </GridItem>
 
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                        labelText="End User"
-                        id="enduser"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                    />
-                  </GridItem>
-
-
-
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                        labelText="Year"
-                        id="year"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                    />
-                  </GridItem>
-
-
-
-                  <GridItem xs={12} sm={12} md={3}>
-                    <CustomInput
-                        labelText="District"
-                        id="district"
-                        formControlProps={{
-                          fullWidth: true
-                        }}
-                    />
-                  </GridItem>
-
-                </GridContainer>
-              </CardBody>
-              <CardFooter>
-                <Button color="primary">Predict</Button>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
+                <GridItem xs={12} sm={12} md={3}>
+                  <CustomInput
+                    labelText="District"
+                    id="district"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                  />
+                </GridItem>
+              </GridContainer>
+            </CardBody>
+            <CardFooter>
+              <Button color="primary">Predict</Button>
+            </CardFooter>
+          </Card>
+        </GridItem>
+      </GridContainer>
 
       <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
