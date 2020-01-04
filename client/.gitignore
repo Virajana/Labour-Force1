@@ -6,7 +6,7 @@
 /build
 # testing
 /coverage
-
+/.idea
 # misc
 .DS_Store
 .env.local
