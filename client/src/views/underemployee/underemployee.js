@@ -76,11 +76,7 @@ class UserProfile extends Component {
     axios
       .post("http://localhost:5000/underemployee", payload)
       .then(res => {
-        swal({
-          title: "Good job!",
-          text: "You have succesfully registered!",
-          icon: "success"
-        });
+
         this.setState({result:res.data.result[0]})
       })
       .catch(err => {

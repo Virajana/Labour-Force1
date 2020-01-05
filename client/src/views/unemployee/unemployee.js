@@ -11,6 +11,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import axios from "axios";
+import swal from "sweetalert";
 
 class Dashboard extends Component {
   constructor() {
@@ -81,7 +82,7 @@ class Dashboard extends Component {
         this.setState({ result: res.data.result[0] });
       })
       .catch(err => {
-        console.log(err);
+        swal("Oops", "Something went wrong!!!", "error");
       });
   };
   render() {
