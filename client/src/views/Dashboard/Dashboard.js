@@ -1,321 +1,265 @@
-import React from "react";
-
-import ChartistGraph from "react-chartist";
-
-import { makeStyles } from "@material-ui/core/styles";
-
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
-
+import React, { Component } from "react";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-
+import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
-
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import axios from "axios";
+import swal from "sweetalert";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts.js";
+const styles = {
+  cardCategoryWhite: {
+    "&,& a,& a:hover,& a:focus": {
+      color: "rgba(255,255,255,.62)",
+      margin: "0",
+      fontSize: "14px",
+      marginTop: "0",
+      marginBottom: "0"
+    },
+    "& a,& a:hover,& a:focus": {
+      color: "#FFFFFF"
+    }
+  },
+  cardTitleWhite: {
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    marginBottom: "3px",
+    textDecoration: "none",
+    "& small": {
+      color: "#777",
+      fontSize: "65%",
+      fontWeight: "400",
+      lineHeight: "1"
+    }
+  },
+  formControl: {
+    minWidth: 200
+  },
+  selectEmpty: {}
+};
 
-import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-
-const useStyles = makeStyles(styles);
-
-export default function Dashboard() {
-  var age=[]
-  const classes = useStyles();
-
-  function handleChange() {
-
+class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      year: "",
+      gender: "",
+      district: "",
+      agecategory: "",
+      result:'',
+    };
   }
 
-  return (
-    <div>
-      {/*<GridContainer>*/}
-      {/*  <GridItem xs={12} sm={6} md={3}>*/}
-      {/*    <Card>*/}
-      {/*      <CardHeader color="warning" stats icon>*/}
-      {/*        <CardIcon color="warning">*/}
-      {/*          <Icon>content_copy</Icon>*/}
-      {/*        </CardIcon>*/}
-      {/*        <p className={classes.cardCategory}>Used Space</p>*/}
-      {/*        <h3 className={classes.cardTitle}>*/}
-      {/*          49/50 <small>GB</small>*/}
-      {/*        </h3>*/}
-      {/*      </CardHeader>*/}
-      {/*      <CardFooter stats>*/}
-      {/*        <div className={classes.stats}>*/}
-      {/*          <Danger>*/}
-      {/*            <Warning />*/}
-      {/*          </Danger>*/}
-      {/*          <a href="#pablo" onClick={e => e.preventDefault()}>*/}
-      {/*            Get more space*/}
-      {/*          </a>*/}
-      {/*        </div>*/}
-      {/*      </CardFooter>*/}
-      {/*    </Card>*/}
-      {/*  </GridItem>*/}
-      {/*  <GridItem xs={12} sm={6} md={3}>*/}
-      {/*    <Card>*/}
-      {/*      <CardHeader color="success" stats icon>*/}
-      {/*        <CardIcon color="success">*/}
-      {/*          <Store />*/}
-      {/*        </CardIcon>*/}
-      {/*        <p className={classes.cardCategory}>Revenue</p>*/}
-      {/*        <h3 className={classes.cardTitle}>$34,245</h3>*/}
-      {/*      </CardHeader>*/}
-      {/*      <CardFooter stats>*/}
-      {/*        <div className={classes.stats}>*/}
-      {/*          <DateRange />*/}
-      {/*          Last 24 Hours*/}
-      {/*        </div>*/}
-      {/*      </CardFooter>*/}
-      {/*    </Card>*/}
-      {/*  </GridItem>*/}
-      {/*  <GridItem xs={12} sm={6} md={3}>*/}
-      {/*    <Card>*/}
-      {/*      <CardHeader color="danger" stats icon>*/}
-      {/*        <CardIcon color="danger">*/}
-      {/*          <Icon>info_outline</Icon>*/}
-      {/*        </CardIcon>*/}
-      {/*        <p className={classes.cardCategory}>Fixed Issues</p>*/}
-      {/*        <h3 className={classes.cardTitle}>75</h3>*/}
-      {/*      </CardHeader>*/}
-      {/*      <CardFooter stats>*/}
-      {/*        <div className={classes.stats}>*/}
-      {/*          <LocalOffer />*/}
-      {/*          Tracked from Github*/}
-      {/*        </div>*/}
-      {/*      </CardFooter>*/}
-      {/*    </Card>*/}
-      {/*  </GridItem>*/}
-      {/*  <GridItem xs={12} sm={6} md={3}>*/}
-      {/*    <Card>*/}
-      {/*      <CardHeader color="info" stats icon>*/}
-      {/*        <CardIcon color="info">*/}
-      {/*          <Accessibility />*/}
-      {/*        </CardIcon>*/}
-      {/*        <p className={classes.cardCategory}>Followers</p>*/}
-      {/*        <h3 className={classes.cardTitle}>+245</h3>*/}
-      {/*      </CardHeader>*/}
-      {/*      <CardFooter stats>*/}
-      {/*        <div className={classes.stats}>*/}
-      {/*          <Update />*/}
-      {/*          Just Updated*/}
-      {/*        </div>*/}
-      {/*      </CardFooter>*/}
-      {/*    </Card>*/}
-      {/*  </GridItem>*/}
-      {/*</GridContainer>*/}
+  YEAR = [2019,2020,2021,2022,2023,2024,2025,2026];
+  AGECATEGORY = [{id:1,catagory:'Below 15'}, {id:2,catagory:'15-60'}, {id:3,catagory:'above 60'}];
+  DISTRICT = [
+      { code :11,name :'Colombo'},
+      { code :63,name :'Ampara'},
+      { code :25,name :'Anuradhapura'},
+      { code :36,name :'Avissawella'},
+      { code :55,name :'Badulla'},
+      { code :57,name :'Bandarawela'},
+      { code :65,name :'Batticaloa'},
+      { code :32,name :'Chilaw'},
+      { code :91,name :'Galle'},
+      { code :33,name :'Gampaha'},
+      { code :47,name :'Hambantota'},
+      { code :51,name :'Hatton'},
+      { code :21,name :'Jaffna'},
+      { code :67,name :'Kalmunai'},
+      { code :34,name :'Kalutara'},
+      { code :81,name :'Kandy'},
+      { code :35,name :'Kegalle'},
+      { code :37,name :'Kurunegala'},
+      { code :23,name :'Mannar'},
+      { code :66,name :'matale'},
+      { code :41,name :'Matara'},
+      { code :54,name :'Nawalapitiya'},
+      { code :31,name :'Negombo'},
+      { code :52,name :'Nuwara Eliya'},
+      { code :38,name :'Panadura'},
+      { code :27,name :'Polonnaruwa'},
+      { code :45,name :'Ratnapura'},
+      { code :26,name :'Trincomalee'},
+      { code :24,name :'Vavuniya'},
 
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={8}>
-          <Card>
-            <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Enter the details</h4>
-              <p className={classes.cardCategoryWhite}>details</p>
-            </CardHeader>
-            <CardBody>
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    labelText="End User"
-                    id="enduser"
-                    formControlProps={{
-                      fullWidth: true
+
+  ];
+  GENDER = [{id:1,catagory:'male'}, {id:2,catagory:'female'}];
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  submitInput = () => {
+    const payload = {
+      year: this.state.year,
+      agecategory: this.state.agecategory,
+      district: this.state.district,
+      gender: this.state.gender
+    };
+    console.log(payload);
+
+    axios
+      .post("http://localhost:5000/unemployee", payload)
+      .then(res => {
+
+        this.setState({result:res.data.result[0]})
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  };
+  render() {
+    return (
+      <div>
+        <div>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={8}>
+              <Card>
+                <CardHeader color="primary">
+                  <h4>Enter the details</h4>
+                  <p>details</p>
+                </CardHeader>
+                <CardBody>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={3}>
+                      <FormControl
+                        variant="filled"
+                        style={{
+                          minWidth: 200
+                        }}
+                      >
+                        <InputLabel id="demo-simple-select-filled-label">
+                          YEAR
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-filled-label"
+                          id="demo-simple-select-filled"
+                          value={this.state.year}
+                          onChange={this.handleChange}
+                          name="year"
+                        >
+                          {this.YEAR.map(item => (
+                            // eslint-disable-next-line react/jsx-key
+                            <MenuItem value={item}>{item}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={3}>
+                      <FormControl
+                        variant="filled"
+                        style={{
+                          minWidth: 200
+                        }}
+                      >
+                        <InputLabel id="demo-simple-select-filled-label">
+                          AGE CATEGORY
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-filled-label"
+                          id="demo-simple-select-filled"
+                          value={this.state.agecategory}
+                          onChange={this.handleChange}
+                          name="agecategory"
+                        >
+                          {this.AGECATEGORY.map(item => (
+                            // eslint-disable-next-line react/jsx-key
+                            <MenuItem value={item.id}>{item.catagory}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={3}>
+                      <FormControl
+                        variant="filled"
+                        style={{
+                          minWidth: 200
+                        }}
+                      >
+                        <InputLabel id="demo-simple-select-filled-label">
+                          DISTRICT
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-filled-label"
+                          id="demo-simple-select-filled"
+                          value={this.state.district}
+                          onChange={this.handleChange}
+                          name="district"
+                        >
+                          {this.DISTRICT.map(item => (
+                            // eslint-disable-next-line react/jsx-key
+                            <MenuItem value={item.code}>{item.name}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={3}>
+                      <FormControl
+                        variant="filled"
+                        style={{
+                          minWidth: 200
+                        }}
+                      >
+                        <InputLabel id="demo-simple-select-filled-label">
+                          GENDER
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-filled-label"
+                          id="demo-simple-select-filled"
+                          value={this.state.gender}
+                          onChange={this.handleChange}
+                          name="gender"
+                        >
+                          {this.GENDER.map(item => (
+                            // eslint-disable-next-line react/jsx-key
+                            <MenuItem value={item.id}>{item.catagory}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </GridItem>
+                  </GridContainer>
+                </CardBody>
+                <CardFooter>
+                  <Button color="secondary" onClick={this.submitInput}>
+                    Predict
+                  </Button>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader color="primary">
+                  <h4>Prediction Result</h4>
+                </CardHeader>
+                <CardBody>
+                  <div
+                    style={{
+                      paddingLeft: "25%",
+                      marginBottom: "40px",
+                      position: "relative",
+                      fontWeight: "bold"
                     }}
-                  />
-                </GridItem>
-
-                <GridItem xs={12} sm={12} md={3}>
-                  <FormControl variant="filled">
-                    <InputLabel id="demo-simple-select-filled-label">
-                      Age
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-filled-label"
-                      id="demo-simple-select-filled"
-                      value={age}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={10}>Ten</MenuItem>
-                      <MenuItem value={20}>Twenty</MenuItem>
-                      <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
-                  </FormControl>
-                </GridItem>
-
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    labelText="District"
-                    id="district"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-            </CardBody>
-            <CardFooter>
-              <Button color="primary">Predict</Button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="success">
-              <ChartistGraph
-                className="ct-chart"
-                data={dailySalesChart.data}
-                type="Line"
-                options={dailySalesChart.options}
-                listener={dailySalesChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Daily Sales</h4>
-              <p className={classes.cardCategory}>
-                <span className={classes.successText}>
-                  <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{" "}
-                increase in today sales.
-              </p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> updated 4 minutes ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="warning">
-              <ChartistGraph
-                className="ct-chart"
-                data={emailsSubscriptionChart.data}
-                type="Bar"
-                options={emailsSubscriptionChart.options}
-                responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                listener={emailsSubscriptionChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Email Subscriptions</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="danger">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-      </GridContainer>
-      {/*<GridContainer>*/}
-      {/*  <GridItem xs={12} sm={12} md={6}>*/}
-      {/*    <CustomTabs*/}
-      {/*      title="Tasks:"*/}
-      {/*      headerColor="primary"*/}
-      {/*      tabs={[*/}
-      {/*        {*/}
-      {/*          tabName: "Bugs",*/}
-      {/*          tabIcon: BugReport,*/}
-      {/*          tabContent: (*/}
-      {/*            <Tasks*/}
-      {/*              checkedIndexes={[0, 3]}*/}
-      {/*              tasksIndexes={[0, 1, 2, 3]}*/}
-      {/*              tasks={bugs}*/}
-      {/*            />*/}
-      {/*          )*/}
-      {/*        },*/}
-      {/*        {*/}
-      {/*          tabName: "Website",*/}
-      {/*          tabIcon: Code,*/}
-      {/*          tabContent: (*/}
-      {/*            <Tasks*/}
-      {/*              checkedIndexes={[0]}*/}
-      {/*              tasksIndexes={[0, 1]}*/}
-      {/*              tasks={website}*/}
-      {/*            />*/}
-      {/*          )*/}
-      {/*        },*/}
-      {/*        {*/}
-      {/*          tabName: "Server",*/}
-      {/*          tabIcon: Cloud,*/}
-      {/*          tabContent: (*/}
-      {/*            <Tasks*/}
-      {/*              checkedIndexes={[1]}*/}
-      {/*              tasksIndexes={[0, 1, 2]}*/}
-      {/*              tasks={server}*/}
-      {/*            />*/}
-      {/*          )*/}
-      {/*        }*/}
-      {/*      ]}*/}
-      {/*    />*/}
-      {/*  </GridItem>*/}
-      {/*  <GridItem xs={12} sm={12} md={6}>*/}
-      {/*    <Card>*/}
-      {/*      <CardHeader color="warning">*/}
-      {/*        <h4 className={classes.cardTitleWhite}>Employees Stats</h4>*/}
-      {/*        <p className={classes.cardCategoryWhite}>*/}
-      {/*          New employees on 15th September, 2016*/}
-      {/*        </p>*/}
-      {/*      </CardHeader>*/}
-      {/*      <CardBody>*/}
-      {/*        <Table*/}
-      {/*          tableHeaderColor="warning"*/}
-      {/*          tableHead={["ID", "Name", "Salary", "Country"]}*/}
-      {/*          tableData={[*/}
-      {/*            ["1", "Dakota Rice", "$36,738", "Niger"],*/}
-      {/*            ["2", "Minerva Hooper", "$23,789", "Curaçao"],*/}
-      {/*            ["3", "Sage Rodriguez", "$56,142", "Netherlands"],*/}
-      {/*            ["4", "Philip Chaney", "$38,735", "Korea, South"]*/}
-      {/*          ]}*/}
-      {/*        />*/}
-      {/*      </CardBody>*/}
-      {/*    </Card>*/}
-      {/*  </GridItem>*/}
-      {/*</GridContainer>*/}
-    </div>
-  );
+                  >
+                    <h1>{this.state.result}</h1>
+                  </div>
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
+        </div>
+      </div>
+    );
+  }
 }
+
+export default Dashboard;

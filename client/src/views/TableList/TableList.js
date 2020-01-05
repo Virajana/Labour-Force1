@@ -1,5 +1,10 @@
-import "./TableList.css";
+
 import React, { Component } from "react";
+
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Button from "components/CustomButtons/Button.js";
@@ -7,20 +12,8 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-import ChartistGraph from "react-chartist";
-import ArrowUpward from "@material-ui/core/SvgIcon/SvgIcon";
-import AccessTime from "@material-ui/icons/AccessTime";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import axios from "axios";
 import swal from "sweetalert";
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts.js";
 
 const styles = {
   cardCategoryWhite: {
@@ -56,306 +49,219 @@ const styles = {
   selectEmpty: {}
 };
 
-/**
- * MONTH:
- SECTOR:
- DISTRICT:
- HH_NO:
- BLANK:
- * @type {StylesHook<Styles<Theme, {}, string>>}
- */
-
 class TableList extends Component {
   constructor() {
     super();
     this.state = {
-      month: "",
-      sector: "",
+      year: "",
+      gender: "",
       district: "",
-      hh_no: "",
-      black: ""
+      agecategory: "",
+      result:'',
     };
   }
 
-  MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  SECTOR = [1, 2, 3];
+  YEAR = [2019,2020,2021,2022,2023,2024,2025,2026];
+  AGECATEGORY = [{id:1,catagory:'Below 15'}, {id:2,catagory:'15-60'}, {id:3,catagory:'above 60'}];
   DISTRICT = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24
+    { code :11,name :'Colombo'},
+    { code :63,name :'Ampara'},
+    { code :25,name :'Anuradhapura'},
+    { code :36,name :'Avissawella'},
+    { code :55,name :'Badulla'},
+    { code :57,name :'Bandarawela'},
+    { code :65,name :'Batticaloa'},
+    { code :32,name :'Chilaw'},
+    { code :91,name :'Galle'},
+    { code :33,name :'Gampaha'},
+    { code :47,name :'Hambantota'},
+    { code :51,name :'Hatton'},
+    { code :21,name :'Jaffna'},
+    { code :67,name :'Kalmunai'},
+    { code :34,name :'Kalutara'},
+    { code :81,name :'Kandy'},
+    { code :35,name :'Kegalle'},
+    { code :37,name :'Kurunegala'},
+    { code :23,name :'Mannar'},
+    { code :66,name :'matale'},
+    { code :41,name :'Matara'},
+    { code :54,name :'Nawalapitiya'},
+    { code :31,name :'Negombo'},
+    { code :52,name :'Nuwara Eliya'},
+    { code :38,name :'Panadura'},
+    { code :27,name :'Polonnaruwa'},
+    { code :45,name :'Ratnapura'},
+    { code :26,name :'Trincomalee'},
+    { code :24,name :'Vavuniya'},
   ];
-  HH_NO = Array.from(Array(215).keys());
-  BLANK = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  GENDER = [{id:1,catagory:'male'}, {id:2,catagory:'female'}];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
   submitInput = () => {
     const payload = {
-      month: this.state.month,
-      sector: this.state.sector,
+      year: this.state.year,
+      agecategory: this.state.agecategory,
       district: this.state.district,
-      hh_no: this.state.hh_no,
-      black: this.state.black
+      gender: this.state.gender
     };
-    console.log(payload)
+    console.log(payload);
 
     axios
-      .post("http://localhost:5000/agestructure", payload)
-      .then(res => {
-        swal({
-          title: "Good job!",
-          text: "You have succesfully registered!",
-          icon: "success"
+        .post("http://localhost:5000/agestructure", payload)
+        .then(res => {
+          // swal({
+          //   title: "Good job!",
+          //   text: "You have succesfully registered!",
+          //   icon: "success"
+          // });
+          this.setState({result:res.data.result[0]})
+        })
+        .catch(err => {
+          swal("Oops", "Something went wrong!!!", "error");
         });
-      })
-      .catch(err => {
-        swal("Oops", "Something went wrong!!!", "error");
-      });
   };
   render() {
     return (
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={8}>
-            <Card>
-              <CardHeader color="primary">
-                <h4>Enter the details</h4>
-                <p>details</p>
-              </CardHeader>
-              <CardBody>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <FormControl
-                      variant="filled"
-                      style={{
-                        minWidth: 200
-                      }}
-                    >
-                      <InputLabel id="demo-simple-select-filled-label">
-                        MONTH
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        value={this.state.month}
-                        onChange={this.handleChange}
-                        name="month"
-                      >
-                        {this.MONTH.map(item => (
-                          // eslint-disable-next-line react/jsx-key
-                          <MenuItem value={item}>{item}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </GridItem>
+        <div>
+          <div>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={8}>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4>Enter the details</h4>
+                    <p>details</p>
+                  </CardHeader>
+                  <CardBody>
+                    <GridContainer>
+                      <GridItem xs={12} sm={12} md={3}>
+                        <FormControl
+                            variant="filled"
+                            style={{
+                              minWidth: 200
+                            }}
+                        >
+                          <InputLabel id="demo-simple-select-filled-label">
+                            YEAR
+                          </InputLabel>
+                          <Select
+                              labelId="demo-simple-select-filled-label"
+                              id="demo-simple-select-filled"
+                              value={this.state.year}
+                              onChange={this.handleChange}
+                              name="year"
+                          >
+                            {this.YEAR.map(item => (
+                                // eslint-disable-next-line react/jsx-key
+                                <MenuItem value={item}>{item}</MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </GridItem>
 
-                  <GridItem xs={12} sm={12} md={3}>
-                    <FormControl
-                      variant="filled"
-                      style={{
-                        minWidth: 200
-                      }}
-                    >
-                      <InputLabel id="demo-simple-select-filled-label">
-                        SECTOR
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        value={this.state.sector}
-                        onChange={this.handleChange}
-                        name="sector"
-                      >
-                        {this.SECTOR.map(item => (
-                          // eslint-disable-next-line react/jsx-key
-                          <MenuItem value={item}>{item}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </GridItem>
+                      <GridItem xs={12} sm={12} md={3}>
+                        <FormControl
+                            variant="filled"
+                            style={{
+                              minWidth: 200
+                            }}
+                        >
+                          <InputLabel id="demo-simple-select-filled-label">
+                            AGE CATEGORY
+                          </InputLabel>
+                          <Select
+                              labelId="demo-simple-select-filled-label"
+                              id="demo-simple-select-filled"
+                              value={this.state.agecategory}
+                              onChange={this.handleChange}
+                              name="agecategory"
+                          >
+                            {this.AGECATEGORY.map(item => (
+                                // eslint-disable-next-line react/jsx-key
+                                <MenuItem value={item.id}>{item.catagory}</MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </GridItem>
 
-                  <GridItem xs={12} sm={12} md={3}>
-                    <FormControl
-                      variant="filled"
-                      style={{
-                        minWidth: 200
-                      }}
+                      <GridItem xs={12} sm={12} md={3}>
+                        <FormControl
+                            variant="filled"
+                            style={{
+                              minWidth: 200
+                            }}
+                        >
+                          <InputLabel id="demo-simple-select-filled-label">
+                            DISTRICT
+                          </InputLabel>
+                          <Select
+                              labelId="demo-simple-select-filled-label"
+                              id="demo-simple-select-filled"
+                              value={this.state.district}
+                              onChange={this.handleChange}
+                              name="district"
+                          >
+                            {this.DISTRICT.map(item => (
+                                // eslint-disable-next-line react/jsx-key
+                                <MenuItem value={item.code}>{item.name}</MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </GridItem>
+                      <GridItem xs={12} sm={12} md={3}>
+                        <FormControl
+                            variant="filled"
+                            style={{
+                              minWidth: 200
+                            }}
+                        >
+                          <InputLabel id="demo-simple-select-filled-label">
+                            GENDER
+                          </InputLabel>
+                          <Select
+                              labelId="demo-simple-select-filled-label"
+                              id="demo-simple-select-filled"
+                              value={this.state.gender}
+                              onChange={this.handleChange}
+                              name="gender"
+                          >
+                            {this.GENDER.map(item => (
+                                // eslint-disable-next-line react/jsx-key
+                                <MenuItem value={item.id}>{item.catagory}</MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </GridItem>
+                    </GridContainer>
+                  </CardBody>
+                  <CardFooter>
+                    <Button color="secondary" onClick={this.submitInput}>
+                      Predict
+                    </Button>
+                  </CardFooter>
+                </Card>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4>Prediction Result</h4>
+                  </CardHeader>
+                  <CardBody>
+                    <div
+                        style={{
+                          paddingLeft: "25%",
+                          marginBottom: "40px",
+                          position: "relative",
+                          fontWeight: "bold"
+                        }}
                     >
-                      <InputLabel id="demo-simple-select-filled-label">
-                        DISTRICT
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        value={this.state.district}
-                        onChange={this.handleChange}
-                        name="district"
-                      >
-                        {this.DISTRICT.map(item => (
-                          // eslint-disable-next-line react/jsx-key
-                          <MenuItem value={item}>{item}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </GridItem>
-                </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <FormControl
-                      variant="filled"
-                      style={{
-                        minWidth: 200
-                      }}
-                    >
-                      <InputLabel id="demo-simple-select-filled-label">
-                        HH_NO
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        value={this.state.hh_no}
-                        onChange={this.handleChange}
-                        name="hh_no"
-                      >
-                        {this.HH_NO.map(item => (
-                          // eslint-disable-next-line react/jsx-key
-                          <MenuItem value={item}>{item}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <FormControl
-                      variant="filled"
-                      style={{
-                        minWidth: 200
-                      }}
-                    >
-                      <InputLabel id="demo-simple-select-filled-label">
-                        BLANK
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-filled-label"
-                        id="demo-simple-select-filled"
-                        value={this.state.black}
-                        onChange={this.handleChange}
-                        name="black"
-                      >
-                        {this.BLANK.map(item => (
-                          // eslint-disable-next-line react/jsx-key
-                          <MenuItem value={item}>{item}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-              <CardFooter>
-                <Button color="primary" onClick={this.submitInput}>
-                  Predict
-                </Button>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
-
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="success">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={dailySalesChart.data}
-                  type="Line"
-                  options={dailySalesChart.options}
-                  listener={dailySalesChart.animation}
-                />
-              </CardHeader>
-              <CardBody>
-                <h4>Daily Sales</h4>
-                <p>
-                  <span>
-                    <ArrowUpward /> 55%
-                  </span>{" "}
-                  increase in today sales.
-                </p>
-              </CardBody>
-              <CardFooter chart>
-                <div>
-                  <AccessTime /> updated 4 minutes ago
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="warning">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={emailsSubscriptionChart.data}
-                  type="Bar"
-                  options={emailsSubscriptionChart.options}
-                  responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                  listener={emailsSubscriptionChart.animation}
-                />
-              </CardHeader>
-              <CardBody>
-                <h4>Email Subscriptions</h4>
-                <p c>Last Campaign Performance</p>
-              </CardBody>
-              <CardFooter chart>
-                <div>
-                  <AccessTime /> campaign sent 2 days ago
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="danger">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={completedTasksChart.data}
-                  type="Line"
-                  options={completedTasksChart.options}
-                  listener={completedTasksChart.animation}
-                />
-              </CardHeader>
-              <CardBody>
-                <h4>Completed Tasks</h4>
-                <p>Last Campaign Performance</p>
-              </CardBody>
-              <CardFooter chart>
-                <div>
-                  <AccessTime /> campaign sent 2 days ago
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </div>
+                      <h1>{this.state.result}</h1>
+                    </div>
+                  </CardBody>
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </div>
+        </div>
     );
   }
 }

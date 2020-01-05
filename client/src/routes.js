@@ -47,7 +47,7 @@ const dashboardRoutes = [
   },
   {
     path: "/underemployment",
-    name: "Underemployment",
+    name: "Under Employment",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: UserProfile,
@@ -60,16 +60,23 @@ const dashboardRoutes = [
     icon: "content_paste",
     component: TableList,
     layout: "/admin"
+  },
+  {
+    path: "/retrain",
+    name: "Retrain Model",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: Typography,
+    layout: "/admin"
+  },
+  {
+    path: "/year",
+    name: "Details",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: Icons,
+    layout: "/admin"
   }
-  // {
-  //   path: "/typography",
-  //   name: "Typography",
-  //   rtlName: "طباعة",
-  //   icon: LibraryBooks,
-  //   component: Typography,
-  //   layout: "/admin"
-  // }
-
 ];
 
 export default dashboardRoutes;
