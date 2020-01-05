@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
@@ -13,41 +14,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import axios from "axios";
 import swal from "sweetalert";
 
-const styles = {
-  cardCategoryWhite: {
-    "&,& a,& a:hover,& a:focus": {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0"
-    },
-    "& a,& a:hover,& a:focus": {
-      color: "#FFFFFF"
-    }
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-    "& small": {
-      color: "#777",
-      fontSize: "65%",
-      fontWeight: "400",
-      lineHeight: "1"
-    }
-  },
-  formControl: {
-    minWidth: 200
-  },
-  selectEmpty: {}
-};
-
-class Dashboard extends Component {
+class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
@@ -62,37 +29,35 @@ class Dashboard extends Component {
   YEAR = [2019,2020,2021,2022,2023,2024,2025,2026];
   AGECATEGORY = [{id:1,catagory:'Below 15'}, {id:2,catagory:'15-60'}, {id:3,catagory:'above 60'}];
   DISTRICT = [
-      { code :11,name :'Colombo'},
-      { code :63,name :'Ampara'},
-      { code :25,name :'Anuradhapura'},
-      { code :36,name :'Avissawella'},
-      { code :55,name :'Badulla'},
-      { code :57,name :'Bandarawela'},
-      { code :65,name :'Batticaloa'},
-      { code :32,name :'Chilaw'},
-      { code :91,name :'Galle'},
-      { code :33,name :'Gampaha'},
-      { code :47,name :'Hambantota'},
-      { code :51,name :'Hatton'},
-      { code :21,name :'Jaffna'},
-      { code :67,name :'Kalmunai'},
-      { code :34,name :'Kalutara'},
-      { code :81,name :'Kandy'},
-      { code :35,name :'Kegalle'},
-      { code :37,name :'Kurunegala'},
-      { code :23,name :'Mannar'},
-      { code :66,name :'matale'},
-      { code :41,name :'Matara'},
-      { code :54,name :'Nawalapitiya'},
-      { code :31,name :'Negombo'},
-      { code :52,name :'Nuwara Eliya'},
-      { code :38,name :'Panadura'},
-      { code :27,name :'Polonnaruwa'},
-      { code :45,name :'Ratnapura'},
-      { code :26,name :'Trincomalee'},
-      { code :24,name :'Vavuniya'},
-
-
+    { code :11,name :'Colombo'},
+    { code :63,name :'Ampara'},
+    { code :25,name :'Anuradhapura'},
+    { code :36,name :'Avissawella'},
+    { code :55,name :'Badulla'},
+    { code :57,name :'Bandarawela'},
+    { code :65,name :'Batticaloa'},
+    { code :32,name :'Chilaw'},
+    { code :91,name :'Galle'},
+    { code :33,name :'Gampaha'},
+    { code :47,name :'Hambantota'},
+    { code :51,name :'Hatton'},
+    { code :21,name :'Jaffna'},
+    { code :67,name :'Kalmunai'},
+    { code :34,name :'Kalutara'},
+    { code :81,name :'Kandy'},
+    { code :35,name :'Kegalle'},
+    { code :37,name :'Kurunegala'},
+    { code :23,name :'Mannar'},
+    { code :66,name :'matale'},
+    { code :41,name :'Matara'},
+    { code :54,name :'Nawalapitiya'},
+    { code :31,name :'Negombo'},
+    { code :52,name :'Nuwara Eliya'},
+    { code :38,name :'Panadura'},
+    { code :27,name :'Polonnaruwa'},
+    { code :45,name :'Ratnapura'},
+    { code :26,name :'Trincomalee'},
+    { code :24,name :'Vavuniya'},
   ];
   GENDER = [{id:1,catagory:'male'}, {id:2,catagory:'female'}];
 
@@ -109,13 +74,17 @@ class Dashboard extends Component {
     console.log(payload);
 
     axios
-      .post("http://localhost:5000/unemployee", payload)
+      .post("http://localhost:5000/underemployee", payload)
       .then(res => {
-
+        swal({
+          title: "Good job!",
+          text: "You have succesfully registered!",
+          icon: "success"
+        });
         this.setState({result:res.data.result[0]})
       })
       .catch(err => {
-        console.log(err)
+        swal("Oops", "Something went wrong!!!", "error");
       });
   };
   render() {
@@ -123,23 +92,25 @@ class Dashboard extends Component {
       <div>
         <div>
           <GridContainer>
-            <GridItem xs={12} sm={12} md={8}>
+            <GridItem xs={12} sm={12} md={12}>
               <Card>
                 <CardHeader color="primary">
-                  <h4>Enter the details</h4>
-                  <p>details</p>
+                  <h4>Under Employement Population Prediction</h4>
+                  <p>Select necessary details</p>
                 </CardHeader>
                 <CardBody>
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={3}>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
+
                         <InputLabel id="demo-simple-select-filled-label">
-                          YEAR
+                          Select the prediction year
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -147,6 +118,7 @@ class Dashboard extends Component {
                           value={this.state.year}
                           onChange={this.handleChange}
                           name="year"
+                          style={{width: '40%'}}
                         >
                           {this.YEAR.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -156,15 +128,16 @@ class Dashboard extends Component {
                       </FormControl>
                     </GridItem>
 
-                    <GridItem xs={12} sm={12} md={3}>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          AGE CATEGORY
+                          Select the age category
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -172,6 +145,7 @@ class Dashboard extends Component {
                           value={this.state.agecategory}
                           onChange={this.handleChange}
                           name="agecategory"
+                          style={{width: '40%'}}
                         >
                           {this.AGECATEGORY.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -181,15 +155,16 @@ class Dashboard extends Component {
                       </FormControl>
                     </GridItem>
 
-                    <GridItem xs={12} sm={12} md={3}>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          DISTRICT
+                          Select the district
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -197,6 +172,7 @@ class Dashboard extends Component {
                           value={this.state.district}
                           onChange={this.handleChange}
                           name="district"
+                          style={{width: '40%'}}
                         >
                           {this.DISTRICT.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -205,15 +181,16 @@ class Dashboard extends Component {
                         </Select>
                       </FormControl>
                     </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          GENDER
+                          Select the gender
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -221,6 +198,7 @@ class Dashboard extends Component {
                           value={this.state.gender}
                           onChange={this.handleChange}
                           name="gender"
+                          style={{width: '40%'}}
                         >
                           {this.GENDER.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -229,12 +207,14 @@ class Dashboard extends Component {
                         </Select>
                       </FormControl>
                     </GridItem>
+                    <GridItem xs={12} sm={12} md={2}>
+                      <Button color="primary" onClick={this.submitInput}>
+                        Predict
+                      </Button>
+                    </GridItem>
                   </GridContainer>
                 </CardBody>
                 <CardFooter>
-                  <Button color="secondary" onClick={this.submitInput}>
-                    Predict
-                  </Button>
                 </CardFooter>
               </Card>
               <Card>
@@ -262,4 +242,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default UserProfile;

@@ -16,65 +16,47 @@
 
 */
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-import Person from "@material-ui/icons/Person";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
+import Employee from "@material-ui/icons/Work";
+import Unemployee from "@material-ui/icons/WorkOff";
+import Age from "@material-ui/icons/WatchLater";
+import Table from "@material-ui/icons/TableChart";
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.js";
-import UserProfile from "views/UserProfile/UserProfile.js";
-import TableList from "views/TableList/TableList.js";
-import Typography from "views/Typography/Typography.js";
-import Icons from "views/Icons/Icons.js";
-import Maps from "views/Maps/Maps.js";
-import NotificationsPage from "views/Notifications/Notifications.js";
-import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
-// core components/views for RTL layout
-import RTLPage from "views/RTLPage/RTLPage.js";
+import unemployee from "views/unemployee/unemployee.js";
+import underemployee from "views/underemployee/underemployee.js";
+import age from "views/age/age.js";
+import pastdata from "views/pastdata/pastdata.js";
 
 const dashboardRoutes = [
   {
     path: "/unemployment",
-    name: "Unemployment",
+    name: "Sri Lankan Labour Force Unemployement Population Prediction",
     rtlName: "لوحة القيادة",
-    icon: Dashboard,
-    component: DashboardPage,
+    icon: Unemployee,
+    component: unemployee,
     layout: "/admin"
   },
   {
     path: "/underemployment",
-    name: "Under Employment",
+    name: "Sri Lankan Labour Force Under Employement Population Prediction",
     rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
+    icon: Employee,
+    component: underemployee,
     layout: "/admin"
   },
   {
     path: "/age",
-    name: "Age Structure",
+    name: "Sri Lankan Labour Force Age Structure Population Prediction",
     rtlName: "قائمة الجدول",
-    icon: "content_paste",
-    component: TableList,
-    layout: "/admin"
-  },
-  {
-    path: "/retrain",
-    name: "Retrain Model",
-    rtlName: "قائمة الجدول",
-    icon: "content_paste",
-    component: Typography,
+    icon: Age,
+    component: age,
     layout: "/admin"
   },
   {
     path: "/year",
-    name: "Details",
+    name: "Past Years Data",
     rtlName: "قائمة الجدول",
-    icon: "content_paste",
-    component: Icons,
+    icon: Table,
+    component: pastdata,
     layout: "/admin"
   }
 ];

@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 
 import FormControl from "@material-ui/core/FormControl";
@@ -14,41 +15,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import axios from "axios";
 import swal from "sweetalert";
 
-const styles = {
-  cardCategoryWhite: {
-    "&,& a,& a:hover,& a:focus": {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0"
-    },
-    "& a,& a:hover,& a:focus": {
-      color: "#FFFFFF"
-    }
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-    "& small": {
-      color: "#777",
-      fontSize: "65%",
-      fontWeight: "400",
-      lineHeight: "1"
-    }
-  },
-  formControl: {
-    minWidth: 200
-  },
-  selectEmpty: {}
-};
-
-class UserProfile extends Component {
+class TableList extends Component {
   constructor() {
     super();
     this.state = {
@@ -108,41 +75,43 @@ class UserProfile extends Component {
     console.log(payload);
 
     axios
-      .post("http://localhost:5000/underemployee", payload)
-      .then(res => {
-        swal({
-          title: "Good job!",
-          text: "You have succesfully registered!",
-          icon: "success"
+        .post("http://localhost:5000/agestructure", payload)
+        .then(res => {
+          // swal({
+          //   title: "Good job!",
+          //   text: "You have succesfully registered!",
+          //   icon: "success"
+          // });
+          this.setState({result:res.data.result[0]})
+        })
+        .catch(err => {
+          swal("Oops", "Something went wrong!!!", "error");
         });
-        this.setState({result:res.data.result[0]})
-      })
-      .catch(err => {
-        swal("Oops", "Something went wrong!!!", "error");
-      });
   };
   render() {
     return (
-      <div>
         <div>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={8}>
-              <Card>
-                <CardHeader color="primary">
-                  <h4>Enter the details</h4>
-                  <p>details</p>
-                </CardHeader>
-                <CardBody>
+          <div>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4>Age Structure Population Prediction</h4>
+                    <p>Select necessary details</p>
+                  </CardHeader>
+                  <CardBody>
                   <GridContainer>
-                    <GridItem xs={12} sm={12} md={3}>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
+
                         <InputLabel id="demo-simple-select-filled-label">
-                          YEAR
+                          Select the prediction year
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -150,6 +119,7 @@ class UserProfile extends Component {
                           value={this.state.year}
                           onChange={this.handleChange}
                           name="year"
+                          style={{width: '40%'}}
                         >
                           {this.YEAR.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -159,15 +129,16 @@ class UserProfile extends Component {
                       </FormControl>
                     </GridItem>
 
-                    <GridItem xs={12} sm={12} md={3}>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          AGE CATEGORY
+                          Select the age category
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -175,24 +146,26 @@ class UserProfile extends Component {
                           value={this.state.agecategory}
                           onChange={this.handleChange}
                           name="agecategory"
+                          style={{width: '40%'}}
                         >
                           {this.AGECATEGORY.map(item => (
                             // eslint-disable-next-line react/jsx-key
-                              <MenuItem value={item.id}>{item.catagory}</MenuItem>
+                            <MenuItem value={item.id}>{item.catagory}</MenuItem>
                           ))}
                         </Select>
                       </FormControl>
                     </GridItem>
 
-                    <GridItem xs={12} sm={12} md={3}>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          DISTRICT
+                          Select the district
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -200,23 +173,25 @@ class UserProfile extends Component {
                           value={this.state.district}
                           onChange={this.handleChange}
                           name="district"
+                          style={{width: '40%'}}
                         >
                           {this.DISTRICT.map(item => (
                             // eslint-disable-next-line react/jsx-key
-                              <MenuItem value={item.code}>{item.name}</MenuItem>
+                            <MenuItem value={item.code}>{item.name}</MenuItem>
                           ))}
                         </Select>
                       </FormControl>
                     </GridItem>
-                    <GridItem xs={12} sm={12} md={3}>
+                    <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
-                          minWidth: 200
+                          minWidth: "100%",
+                          flexDirection: 'row-reverse'
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          GENDER
+                          Select the gender
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -224,45 +199,47 @@ class UserProfile extends Component {
                           value={this.state.gender}
                           onChange={this.handleChange}
                           name="gender"
+                          style={{width: '40%'}}
                         >
                           {this.GENDER.map(item => (
                             // eslint-disable-next-line react/jsx-key
-                              <MenuItem value={item.id}>{item.catagory}</MenuItem>
+                            <MenuItem value={item.id}>{item.catagory}</MenuItem>
                           ))}
                         </Select>
                       </FormControl>
                     </GridItem>
+                    <GridItem xs={12} sm={12} md={2}>
+                      <Button color="primary" onClick={this.submitInput}>
+                        Predict
+                      </Button>
+                    </GridItem>
                   </GridContainer>
-                </CardBody>
-                <CardFooter>
-                  <Button color="secondary" onClick={this.submitInput}>
-                    Predict
-                  </Button>
-                </CardFooter>
-              </Card>
-              <Card>
-                <CardHeader color="primary">
-                  <h4>Prediction Result</h4>
-                </CardHeader>
-                <CardBody>
-                  <div
-                    style={{
-                      paddingLeft: "25%",
-                      marginBottom: "40px",
-                      position: "relative",
-                      fontWeight: "bold"
-                    }}
-                  >
-                    <h1>{this.state.result}</h1>
-                  </div>
-                </CardBody>
-              </Card>
-            </GridItem>
-          </GridContainer>
+                  <CardFooter></CardFooter>
+                  </CardBody>
+                </Card>
+                <Card>
+                  <CardHeader color="primary">
+                    <h4>Prediction Result</h4>
+                  </CardHeader>
+                  <CardBody>
+                    <div
+                        style={{
+                          paddingLeft: "25%",
+                          marginBottom: "40px",
+                          position: "relative",
+                          fontWeight: "bold"
+                        }}
+                    >
+                      <h1>{this.state.result}</h1>
+                    </div>
+                  </CardBody>
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </div>
         </div>
-      </div>
     );
   }
 }
 
-export default UserProfile;
+export default TableList;
