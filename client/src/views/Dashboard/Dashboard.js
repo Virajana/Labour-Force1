@@ -62,30 +62,37 @@ class Dashboard extends Component {
   YEAR = [2019,2020,2021,2022,2023,2024,2025,2026];
   AGECATEGORY = [{id:1,catagory:'Below 15'}, {id:2,catagory:'15-60'}, {id:3,catagory:'above 60'}];
   DISTRICT = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23,
-    24
+      { code :11,name :'Colombo'},
+      { code :63,name :'Ampara'},
+      { code :25,name :'Anuradhapura'},
+      { code :36,name :'Avissawella'},
+      { code :55,name :'Badulla'},
+      { code :57,name :'Bandarawela'},
+      { code :65,name :'Batticaloa'},
+      { code :32,name :'Chilaw'},
+      { code :91,name :'Galle'},
+      { code :33,name :'Gampaha'},
+      { code :47,name :'Hambantota'},
+      { code :51,name :'Hatton'},
+      { code :21,name :'Jaffna'},
+      { code :67,name :'Kalmunai'},
+      { code :34,name :'Kalutara'},
+      { code :81,name :'Kandy'},
+      { code :35,name :'Kegalle'},
+      { code :37,name :'Kurunegala'},
+      { code :23,name :'Mannar'},
+      { code :66,name :'matale'},
+      { code :41,name :'Matara'},
+      { code :54,name :'Nawalapitiya'},
+      { code :31,name :'Negombo'},
+      { code :52,name :'Nuwara Eliya'},
+      { code :38,name :'Panadura'},
+      { code :27,name :'Polonnaruwa'},
+      { code :45,name :'Ratnapura'},
+      { code :26,name :'Trincomalee'},
+      { code :24,name :'Vavuniya'},
+
+
   ];
   GENDER = [{id:1,catagory:'male'}, {id:2,catagory:'female'}];
 
@@ -193,7 +200,7 @@ class Dashboard extends Component {
                         >
                           {this.DISTRICT.map(item => (
                             // eslint-disable-next-line react/jsx-key
-                            <MenuItem value={item}>{item}</MenuItem>
+                            <MenuItem value={item.code}>{item.name}</MenuItem>
                           ))}
                         </Select>
                       </FormControl>
