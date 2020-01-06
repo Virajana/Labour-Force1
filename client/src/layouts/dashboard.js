@@ -15,7 +15,7 @@ export default function Dashboard({...rest}) {
                 <div className="w3-display-middle">
                     <h1 className="w3-jumbo w3-animate-top" style={{textAlign: "center"}
                     }>SRI LANKAN LABOR FORCE SURVAY DATA PREDICTION</h1>
-                    <Link to="/account">
+                    <Link to="/admin/unemployment">
                         <button className="button button3">ENTER</button>
                     </Link>
                 </div>

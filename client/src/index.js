@@ -37,7 +37,7 @@ ReactDOM.render(
       <Route path="/admin" component={Admin} />
       <Route path ="/welcome" component ={Dashboard}/>
       <Route path="/rtl" component={RTL} />
-      <Redirect from="/" to="admin/unemployment" />
+      <Redirect from="/" to="/welcome" />
     </Switch>
   </Router>,
   document.getElementById("root")
