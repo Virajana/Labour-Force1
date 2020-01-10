@@ -25,17 +25,19 @@ import "mdbreact/dist/css/mdb.css";
 // core components
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
-
 import "assets/css/material-dashboard-react.css?v=1.8.0";
-
+import Dashboard from "./layouts/dashboard";
 const hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"/>
     <Switch>
       <Route path="/admin" component={Admin} />
+      <Route path ="/welcome" component ={Dashboard}/>
       <Route path="/rtl" component={RTL} />
-      <Redirect from="/" to="admin/unemployment" />
+      <Redirect from="/" to="/welcome" />
     </Switch>
   </Router>,
   document.getElementById("root")
