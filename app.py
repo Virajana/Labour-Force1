@@ -156,6 +156,7 @@ def predict_under_employee_count():
 if __name__ == '__main__':
     cors = CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+#     port = int(os.environ.get("PORT", 5000))
+#     app.run(host='0.0.0.0', port=port)
+    app.run()
 
