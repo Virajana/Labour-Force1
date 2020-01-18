@@ -51,7 +51,7 @@ enced_gender_b = pd.get_dummies(genders_b.gend_b, prefix='gend_b')
 # In[6]:
 
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder="./client/build", static_folder="./client/build/static")
 app.config['SITE'] = "http://0.0.0.0:5000/"
 
 
@@ -156,7 +156,7 @@ def predict_under_employee_count():
 if __name__ == '__main__':
     cors = CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'
-#     port = int(os.environ.get("PORT", 5000))
-#     app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
     app.run()
 
