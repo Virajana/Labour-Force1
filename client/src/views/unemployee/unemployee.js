@@ -21,39 +21,56 @@ class Dashboard extends Component {
       gender: "",
       district: "",
       agecategory: "",
-      result: ""
+      result: "0"
     };
   }
 
-  YEAR = [{name:2020,code:12},{name:2021,code:13},{name:2022,code:14},{name:2023,code:15}];
-  AGECATEGORY = [{id:1,catagory:'Below 15'}, {id:2,catagory:'15-60'}, {id:3,catagory:'above 60'}];
-  DISTRICT = [
-    { code :0,name :'Colombo'},
-    { code :15,name :'Ampara'},
-    { code :19,name :'Anuradhapura'},
-    { code :21,name :'Badulla'},
-    { code :14,name :'Batticaloa'},
-    { code :6,name :'Galle'},
-    { code :1,name :'Gampaha'},
-    { code :8,name :'Hambantota'},
-    { code :9,name :'Jaffna'},
-    { code :2,name :'Kalutara'},
-    { code :3,name :'Kandy'},
-    { code :24,name :'Kegalle'},
-    {code:10,name:'Kilinochchi'},
-    { code :17,name :'Kurunegala'},
-    { code :11,name :'Mannar'},
-    { code :4,name :'matale'},
-    { code :16,name :'Moneragala'},
-    { code :13,name :'Mullaitivu'},
-    { code :7,name :'Matara'},
-    { code :5,name :'Nuwara Eliya'},
-    { code :20,name :'Polonnaruwa'},
-    { code :23,name :'Ratnapura'},
-    { code :22,name :'Trincomalee'},
-    { code :18,name :'Puththalama'},
-    { code :12,name :'Vavuniya'},
+  YEAR = [
+    { name: 2020, code: 2020 },
+    { name: 2021, code: 2021 },
+    { name: 2022, code: 2022 },
+    { name: 2023, code: 2023 },
+    { name: 2024, code: 2024 },
+    { name: 2025, code: 2025 },
+    { name: 2026, code: 2026 },
+    { name: 2027, code: 2027 },
+    { name: 2028, code: 2028 },
+    { name: 2029, code: 2029 },
+    { name: 2030, code: 2030 },
   ];
+  AGECATEGORY = [
+    { id: 1, catagory: "Below 15" },
+    { id: 2, catagory: "15-60" },
+    { id: 3, catagory: "above 60" }
+  ];
+  DISTRICT = [
+    { code: 11, name: "Colombo" },
+    { code: 52, name: "Ampara" },
+    { code: 71, name: "Anuradhapura" },
+    { code: 81, name: "Badulla" },
+    { code: 51, name: "Batticaloa" },
+    { code: 31, name: "Galle" },
+    { code: 12, name: "Gampaha" },
+    { code: 33, name: "Hambantota" },
+    { code: 41, name: "Jaffna" },
+    { code: 13, name: "Kalutara" },
+    { code: 21, name: "Kandy" },
+    { code: 92, name: "Kegalle" },
+    { code: 42, name: "Kilinochchi" },
+    { code: 61, name: "Kurunegala" },
+    { code: 43, name: "Mannar" },
+    { code: 22, name: "matale" },
+    { code: 16, name: "Moneragala" },
+    { code: 13, name: "Mullaitivu" },
+    { code: 32, name: "Matara" },
+    { code: 23, name: "Nuwara Eliya" },
+    { code: 72, name: "Polonnaruwa" },
+    { code: 91, name: "Ratnapura" },
+    { code: 53, name: "Trincomalee" },
+    { code: 62, name: "Puththalama" },
+    { code: 44, name: "Vavuniya" }
+  ];
+
   GENDER = [{ id: 1, catagory: "Male" }, { id: 2, catagory: "Female" }];
 
   handleChange = e => {
@@ -219,7 +236,7 @@ class Dashboard extends Component {
                       fontWeight: "bold"
                     }}
                   >
-                    <h1>{this.state.result}</h1>
+                    <h1>{this.state.result} Peoples. (Accuary: 67.89%)</h1>
                   </div>
                 </CardBody>
               </Card>
