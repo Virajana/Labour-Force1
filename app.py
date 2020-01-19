@@ -51,7 +51,7 @@ enced_gender_b = pd.get_dummies(genders_b.gend_b, prefix='gend_b')
 # In[ ]:
 
 
-app = Flask(__name__, template_folder="./client/build", static_folder="./client/build/static")
+app = Flask(__name__, template_folder="client/build", static_folder="client/build/static")
 app.config['SITE'] = "http://0.0.0.0:5000/"
 
 
