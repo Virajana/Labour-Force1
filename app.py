@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import os
@@ -13,7 +13,7 @@ from flask_cors import CORS, cross_origin
 from sklearn.preprocessing import OneHotEncoder
 
 
-# In[ ]:
+# In[2]:
 
 
 age_model = pickle.load(open('models/age.sav', 'rb'))
@@ -21,7 +21,7 @@ unemployee_model = pickle.load(open('models/unemployee.sav', 'rb'))
 under_employee_model = pickle.load(open('models/under_employee.sav', 'rb'))
 
 
-# In[ ]:
+# In[3]:
 
 
 dis_data = [11,12,13,21,22,23,31,32,33,41,42,43,44,45,51,52,53,61,62,71,72,81,82,91,92]
@@ -30,7 +30,7 @@ genders_a_data = [1,1.5,2]
 genders_b_data = [1,2]
 
 
-# In[ ]:
+# In[4]:
 
 
 districts = pd.DataFrame({'district': dis_data})
@@ -39,7 +39,7 @@ genders_a = pd.DataFrame({'gend_a': genders_a_data})
 genders_b = pd.DataFrame({'gend_b': genders_b_data})
 
 
-# In[ ]:
+# In[5]:
 
 
 enced_dis = pd.get_dummies(districts.district, prefix='dis')
@@ -48,14 +48,14 @@ enced_gender_a = pd.get_dummies(genders_a.gend_a, prefix='gend_a')
 enced_gender_b = pd.get_dummies(genders_b.gend_b, prefix='gend_b')
 
 
-# In[ ]:
+# In[6]:
 
 
 app = Flask(__name__, template_folder="client/build", static_folder="client/build/static")
-app.config['SITE'] = "http://0.0.0.0:5000/"
+# app.config['SITE'] = "http://0.0.0.0:5000/"
 
 
-# In[ ]:
+# In[7]:
 
 
 @cross_origin()
@@ -66,7 +66,7 @@ def catch_all(path):
     return render_template('index.html')
 
 
-# In[ ]:
+# In[8]:
 
 
 @cross_origin()
@@ -94,7 +94,7 @@ def predict_age_count():
 # predict_age_count()
 
 
-# In[ ]:
+# In[9]:
 
 
 @cross_origin()
@@ -122,7 +122,7 @@ def predict_unemployee_count():
 # predict_unemployee_count()
 
 
-# In[ ]:
+# In[10]:
 
 
 @cross_origin()
@@ -150,14 +150,14 @@ def predict_under_employee_count():
 # predict_under_employee_count()
 
 
-# In[ ]:
+# In[11]:
 
 
 if __name__ == '__main__':
     cors = CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'
     app.config['EXPLAIN_TEMPLATE_LOADING'] = True
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+#     port = int(os.environ.get("PORT", 5000))
+#     app.run(host='0.0.0.0', port=port)
     app.run()
 
