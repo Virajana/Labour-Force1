@@ -98,7 +98,7 @@ class UserProfile extends Component {
     console.log(payload);
 
     axios
-      .post("http://localhost:5000/underemployee", payload)
+      .post("https://lk-laber-force-data-prediction.herokuapp.com/underemployee", payload)
       .then(res => {
 
         this.setState({result:res.data.result[0]})

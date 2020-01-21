@@ -69,7 +69,7 @@ class Dashboard extends Component {
     console.log(payload);
 
     axios
-      .post("http://localhost:5000/unemployee", payload)
+      .post("https://lk-laber-force-data-prediction.herokuapp.com/unemployee", payload)
       .then(res => {
         this.setState({ result: res.data.result[0] });
       })
