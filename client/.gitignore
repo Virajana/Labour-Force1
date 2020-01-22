@@ -4,6 +4,7 @@
 /node_modules
 
 # testing
+/build
 /coverage
 /.idea
 # misc
