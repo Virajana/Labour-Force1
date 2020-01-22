@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './dashboard.css'
 import {Link} from 'react-router-dom';
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -20,7 +20,7 @@ export default function Dashboard({...rest}) {
                     </Link>
                 </div>
                 <div className="w3-display-bottomleft w3-padding-large">
-                    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">RDSlabs</a>
+                    {/* Powered by <a href="#">RDSlabs</a> */}
                 </div>
             </div>
         </div>
