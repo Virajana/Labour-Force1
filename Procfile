@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn app:app && cd client && npm run build
