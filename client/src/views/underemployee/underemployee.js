@@ -37,7 +37,7 @@ class UserProfile extends Component {
     { name: 2027, code: 2027 },
     { name: 2028, code: 2028 },
     { name: 2029, code: 2029 },
-    { name: 2030, code: 2030 },
+    { name: 2030, code: 2030 }
   ];
   AGECATEGORY = [
     { id: 1, catagory: "Below 15" },
@@ -114,7 +114,10 @@ class UserProfile extends Component {
     console.log(payload);
 
     axios
-      .post("https://lk-laber-force-data-prediction.herokuapp.com/underemployee", payload)
+      .post(
+        "https://lk-laber-force-data-prediction.herokuapp.com/underemployee",
+        payload
+      )
       .then(res => {
         this.setState({ result: res.data.result[0] });
       })
@@ -265,6 +268,22 @@ class UserProfile extends Component {
                   >
                     <h1>{this.state.result} Peoples. (Accuary: 55.01%)</h1>
                   </div>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardHeader color="success">
+                  <h4>Model summary</h4>
+                </CardHeader>
+                <CardBody>
+                  <h4>Total records: 800</h4>
+                  <h4>Features: 31</h4>
+                  <h4>
+                    Model: Polynomial interpolated MLPRegressor (Neural network)
+                    model with hyperparameter tuning
+                  </h4>
+                  <h4>Model score: 0.5506</h4>
+                  <h4>Model R2: 0.5106</h4>
+                  <h4>Model explained variance score: 0.5130</h4>
                 </CardBody>
               </Card>
             </GridItem>

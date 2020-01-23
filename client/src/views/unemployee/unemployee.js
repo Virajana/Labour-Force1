@@ -36,7 +36,7 @@ class Dashboard extends Component {
     { name: 2027, code: 2027 },
     { name: 2028, code: 2028 },
     { name: 2029, code: 2029 },
-    { name: 2030, code: 2030 },
+    { name: 2030, code: 2030 }
   ];
   AGECATEGORY = [
     { id: 1, catagory: "Below 15" },
@@ -86,7 +86,10 @@ class Dashboard extends Component {
     console.log(payload);
 
     axios
-      .post("https://lk-laber-force-data-prediction.herokuapp.com/unemployee", payload)
+      .post(
+        "https://lk-laber-force-data-prediction.herokuapp.com/unemployee",
+        payload
+      )
       .then(res => {
         this.setState({ result: res.data.result[0] });
       })
@@ -112,10 +115,9 @@ class Dashboard extends Component {
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
-
                         <InputLabel id="demo-simple-select-filled-label">
                           Select the prediction year
                         </InputLabel>
@@ -125,11 +127,11 @@ class Dashboard extends Component {
                           value={this.state.year}
                           onChange={this.handleChange}
                           name="year"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.YEAR.map(item => (
                             // eslint-disable-next-line react/jsx-key
-                              <MenuItem value={item.code}>{item.name}</MenuItem>
+                            <MenuItem value={item.code}>{item.name}</MenuItem>
                           ))}
                         </Select>
                       </FormControl>
@@ -140,7 +142,7 @@ class Dashboard extends Component {
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
@@ -152,7 +154,7 @@ class Dashboard extends Component {
                           value={this.state.agecategory}
                           onChange={this.handleChange}
                           name="agecategory"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.AGECATEGORY.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -167,7 +169,7 @@ class Dashboard extends Component {
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
@@ -179,7 +181,7 @@ class Dashboard extends Component {
                           value={this.state.district}
                           onChange={this.handleChange}
                           name="district"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.DISTRICT.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -193,7 +195,7 @@ class Dashboard extends Component {
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
@@ -205,7 +207,7 @@ class Dashboard extends Component {
                           value={this.state.gender}
                           onChange={this.handleChange}
                           name="gender"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.GENDER.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -238,6 +240,22 @@ class Dashboard extends Component {
                   >
                     <h1>{this.state.result} Peoples. (Accuary: 60.89%)</h1>
                   </div>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardHeader color="success">
+                  <h4>Model summary</h4>
+                </CardHeader>
+                <CardBody>
+                  <h4>Total records: 1039</h4>
+                  <h4>Features: 32</h4>
+                  <h4>
+                    Model: Polynomial interpolated ARDRegression model without
+                    hyperparameter tuning
+                  </h4>
+                  <h4>Model score: 0.6089</h4>
+                  <h4>Model R2: 0.58208</h4>
+                  <h4>Model explained variance score: 0.5828</h4>
                 </CardBody>
               </Card>
             </GridItem>

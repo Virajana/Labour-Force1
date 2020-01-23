@@ -21,7 +21,7 @@ class TableList extends Component {
       gender: "",
       district: "",
       agecategory: "",
-      result:'0',
+      result: "0"
     };
   }
 
@@ -36,7 +36,7 @@ class TableList extends Component {
     { name: 2027, code: 2027 },
     { name: 2028, code: 2028 },
     { name: 2029, code: 2029 },
-    { name: 2030, code: 2030 },
+    { name: 2030, code: 2030 }
   ];
   AGECATEGORY = [
     { id: 1, catagory: "Below 15" },
@@ -71,7 +71,7 @@ class TableList extends Component {
     { code: 44, name: "Vavuniya" }
   ];
 
-  GENDER = [{id:0,catagory:'male'}, {id:2,catagory:'female'}];
+  GENDER = [{ id: 0, catagory: "male" }, { id: 2, catagory: "female" }];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -86,41 +86,43 @@ class TableList extends Component {
     console.log(payload);
 
     axios
-        .post("https://lk-laber-force-data-prediction.herokuapp.com/agestructure", payload)
-        .then(res => {
-          // swal({
-          //   title: "Good job!",
-          //   text: "You have succesfully registered!",
-          //   icon: "success"
-          // });
-          this.setState({result:res.data.result[0]})
-        })
-        .catch(err => {
-          swal("Oops", "Something went wrong!!!", "error");
-        });
+      .post(
+        "https://lk-laber-force-data-prediction.herokuapp.com/agestructure",
+        payload
+      )
+      .then(res => {
+        // swal({
+        //   title: "Good job!",
+        //   text: "You have succesfully registered!",
+        //   icon: "success"
+        // });
+        this.setState({ result: res.data.result[0] });
+      })
+      .catch(err => {
+        swal("Oops", "Something went wrong!!!", "error");
+      });
   };
   render() {
     return (
+      <div>
         <div>
-          <div>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={12}>
-                <Card>
-                  <CardHeader color="success">
-                    <h4>Sri Lankan age Structure Population Prediction</h4>
-                    <p>Select necessary details</p>
-                  </CardHeader>
-                  <CardBody>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+              <Card>
+                <CardHeader color="success">
+                  <h4>Sri Lankan age Structure Population Prediction</h4>
+                  <p>Select necessary details</p>
+                </CardHeader>
+                <CardBody>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                       <FormControl
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
-
                         <InputLabel id="demo-simple-select-filled-label">
                           Select the prediction year
                         </InputLabel>
@@ -130,11 +132,12 @@ class TableList extends Component {
                           value={this.state.year}
                           onChange={this.handleChange}
                           name="year"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.YEAR.map(item => (
                             // eslint-disable-next-line react/jsx-key
-                              <MenuItem value={item.code}>{item.name}</MenuItem>                          ))}
+                            <MenuItem value={item.code}>{item.name}</MenuItem>
+                          ))}
                         </Select>
                       </FormControl>
                     </GridItem>
@@ -144,7 +147,7 @@ class TableList extends Component {
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
@@ -156,7 +159,7 @@ class TableList extends Component {
                           value={this.state.agecategory}
                           onChange={this.handleChange}
                           name="agecategory"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.AGECATEGORY.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -171,7 +174,7 @@ class TableList extends Component {
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
@@ -183,7 +186,7 @@ class TableList extends Component {
                           value={this.state.district}
                           onChange={this.handleChange}
                           name="district"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.DISTRICT.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -197,7 +200,7 @@ class TableList extends Component {
                         variant="filled"
                         style={{
                           minWidth: "100%",
-                          flexDirection: 'row-reverse'
+                          flexDirection: "row-reverse"
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
@@ -209,7 +212,7 @@ class TableList extends Component {
                           value={this.state.gender}
                           onChange={this.handleChange}
                           name="gender"
-                          style={{width: '40%'}}
+                          style={{ width: "40%" }}
                         >
                           {this.GENDER.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -225,29 +228,45 @@ class TableList extends Component {
                     </GridItem>
                   </GridContainer>
                   <CardFooter></CardFooter>
-                  </CardBody>
-                </Card>
-                <Card>
-                  <CardHeader color="success">
-                    <h4>Prediction Result</h4>
-                  </CardHeader>
-                  <CardBody>
-                    <div
-                        style={{
-                          paddingLeft: "25%",
-                          marginBottom: "40px",
-                          position: "relative",
-                          fontWeight: "bold"
-                        }}
-                    >
-                      <h1>{this.state.result} Peoples. (Accuary: 70.67%)</h1>
-                    </div>
-                  </CardBody>
-                </Card>
-              </GridItem>
-            </GridContainer>
-          </div>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardHeader color="success">
+                  <h4>Prediction Result</h4>
+                </CardHeader>
+                <CardBody>
+                  <div
+                    style={{
+                      paddingLeft: "25%",
+                      marginBottom: "40px",
+                      position: "relative",
+                      fontWeight: "bold"
+                    }}
+                  >
+                    <h1>{this.state.result} Peoples. (Accuary: 70.67%)</h1>
+                  </div>
+                </CardBody>
+              </Card>
+              <Card>
+                <CardHeader color="success">
+                  <h4>Model summary</h4>
+                </CardHeader>
+                <CardBody>
+                  <h4>Total records: 1041</h4>
+                  <h4>Features: 32</h4>
+                  <h4>
+                    Model: Polynomial interpolated ARDRegression Model without
+                    hyperparameter tuning
+                  </h4>
+                  <h4>Model score: 0.7067</h4>
+                  <h4>Model R2: 0.70667</h4>
+                  <h4>Model explained variance score: 0.7075</h4>
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
         </div>
+      </div>
     );
   }
 }
