@@ -99,7 +99,7 @@ class UserProfile extends Component {
    Vavuniya	LK.
    * @type {*[]}
    */
-  GENDER = [{ id: 1, catagory: "male" }, { id: 2, catagory: "female" }];
+  GENDER = [{ id: 0, catagory: "male" }, { id: 1, catagory: "female" }];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -129,8 +129,8 @@ class UserProfile extends Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <Card>
-                <CardHeader color="primary">
-                  <h4>Under Employement Population Prediction</h4>
+                <CardHeader color="success">
+                  <h4>Sri Lankan under Employement Population Prediction</h4>
                   <p>Select necessary details</p>
                 </CardHeader>
                 <CardBody>
@@ -242,7 +242,7 @@ class UserProfile extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={2}>
-                      <Button color="primary" onClick={this.submitInput}>
+                      <Button color="success" onClick={this.submitInput}>
                         Predict
                       </Button>
                     </GridItem>
@@ -251,7 +251,7 @@ class UserProfile extends Component {
                 <CardFooter></CardFooter>
               </Card>
               <Card>
-                <CardHeader color="primary">
+                <CardHeader color="success">
                   <h4>Prediction Result</h4>
                 </CardHeader>
                 <CardBody>
@@ -263,7 +263,7 @@ class UserProfile extends Component {
                       fontWeight: "bold"
                     }}
                   >
-                    <h1>{this.state.result} Peoples. (Accuary: 56.01%)</h1>
+                    <h1>{this.state.result} Peoples. (Accuary: 55.01%)</h1>
                   </div>
                 </CardBody>
               </Card>

@@ -19,17 +19,17 @@
 import Employee from "@material-ui/icons/Work";
 import Unemployee from "@material-ui/icons/WorkOff";
 import Age from "@material-ui/icons/WatchLater";
-import Table from "@material-ui/icons/TableChart";
+// import Table from "@material-ui/icons/TableChart";
 // core components/views for Admin layout
 import unemployee from "views/unemployee/unemployee.js";
 import underemployee from "views/underemployee/underemployee.js";
 import age from "views/age/age.js";
-import pastdata from "views/pastdata/pastdata.js";
+// import pastdata from "views/pastdata/pastdata.js";
 
 const dashboardRoutes = [
   {
     path: "/unemployment",
-    name: "Sri Lankan Labour Force Unemployement Population Prediction",
+    name: "Unemployement Population",
     rtlName: "لوحة القيادة",
     icon: Unemployee,
     component: unemployee,
@@ -37,7 +37,7 @@ const dashboardRoutes = [
   },
   {
     path: "/underemployment",
-    name: "Sri Lankan Labour Force Under Employement Population Prediction",
+    name: "Under Employement Population",
     rtlName: "ملف تعريفي للمستخدم",
     icon: Employee,
     component: underemployee,
@@ -45,20 +45,20 @@ const dashboardRoutes = [
   },
   {
     path: "/age",
-    name: "Sri Lankan Labour Force Age Structure Population Prediction",
+    name: "Age Structure Population",
     rtlName: "قائمة الجدول",
     icon: Age,
     component: age,
     layout: "/admin"
   },
-  {
-    path: "/year",
-    name: "Past Years Data",
-    rtlName: "قائمة الجدول",
-    icon: Table,
-    component: pastdata,
-    layout: "/admin"
-  }
+  // {
+  //   path: "/year",
+  //   name: "Past Years Data",
+  //   rtlName: "قائمة الجدول",
+  //   icon: Table,
+  //   component: pastdata,
+  //   layout: "/admin"
+  // }
 ];
 
 export default dashboardRoutes;

@@ -101,8 +101,8 @@ class Dashboard extends Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <Card>
-                <CardHeader color="primary">
-                  <h4>Unemployement Population Prediction</h4>
+                <CardHeader color="success">
+                  <h4>Sri Lankan unemployement Population Prediction</h4>
                   <p>Select necessary details</p>
                 </CardHeader>
                 <CardBody>
@@ -215,7 +215,7 @@ class Dashboard extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={2}>
-                      <Button color="primary" onClick={this.submitInput}>
+                      <Button color="success" onClick={this.submitInput}>
                         Predict
                       </Button>
                     </GridItem>
@@ -224,7 +224,7 @@ class Dashboard extends Component {
                 <CardFooter></CardFooter>
               </Card>
               <Card>
-                <CardHeader color="primary">
+                <CardHeader color="success">
                   <h4>Prediction Result</h4>
                 </CardHeader>
                 <CardBody>
@@ -236,7 +236,7 @@ class Dashboard extends Component {
                       fontWeight: "bold"
                     }}
                   >
-                    <h1>{this.state.result} Peoples. (Accuary: 67.89%)</h1>
+                    <h1>{this.state.result} Peoples. (Accuary: 60.89%)</h1>
                   </div>
                 </CardBody>
               </Card>
