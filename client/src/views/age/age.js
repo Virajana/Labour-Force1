@@ -86,7 +86,7 @@ class TableList extends Component {
     console.log(payload);
 
     axios
-        .post("http://localhost:5000/agestructure", payload)
+        .post("https://lk-laber-force-data-prediction.herokuapp.com/agestructure", payload)
         .then(res => {
           // swal({
           //   title: "Good job!",
