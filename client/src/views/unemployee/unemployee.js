@@ -71,7 +71,7 @@ class Dashboard extends Component {
     { code: 44, name: "Vavuniya" }
   ];
 
-  GENDER = [{ id: 1, catagory: "Male" }, { id: 2, catagory: "Female" }];
+  GENDER = [{ id: 0, catagory: "Male" }, { id: 2, catagory: "Female" }];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });

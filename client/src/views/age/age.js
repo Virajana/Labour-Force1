@@ -71,7 +71,7 @@ class TableList extends Component {
     { code: 44, name: "Vavuniya" }
   ];
 
-  GENDER = [{id:1,catagory:'male'}, {id:2,catagory:'female'}];
+  GENDER = [{id:0,catagory:'male'}, {id:2,catagory:'female'}];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
