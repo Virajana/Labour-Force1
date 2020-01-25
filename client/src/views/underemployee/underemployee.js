@@ -18,11 +18,13 @@ class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
-      year: "",
-      gender: "",
-      district: "",
-      agecategory: "",
-      result: "0"
+      year: 2020,
+      gender: 1,
+      district: 11,
+      agecategory: 2,
+      result: "0",
+      total: "0",
+      precentage: "0"
     };
   }
 
@@ -39,11 +41,14 @@ class UserProfile extends Component {
     { name: 2029, code: 2029 },
     { name: 2030, code: 2030 }
   ];
-  AGECATEGORY = [
-    { id: 1, catagory: "Below 15" },
-    { id: 2, catagory: "15-60" },
-    { id: 3, catagory: "above 60" }
-  ];
+  AGECATEGORY = [{ id: 2, catagory: "15-60" }];
+
+  // AGECATEGORY = [
+  //   { id: 1, catagory: "Below 15" },
+  //   { id: 2, catagory: "15-60" },
+  //   { id: 3, catagory: "above 60" }
+  // ];
+
   DISTRICT = [
     { code: 11, name: "Colombo" },
     { code: 52, name: "Ampara" },
@@ -99,7 +104,7 @@ class UserProfile extends Component {
    Vavuniya	LK.
    * @type {*[]}
    */
-  GENDER = [{ id: 0, catagory: "male" }, { id: 1, catagory: "female" }];
+  GENDER = [{ id: 1, catagory: "male" }, { id: 2, catagory: "female" }];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -119,7 +124,11 @@ class UserProfile extends Component {
         payload
       )
       .then(res => {
-        this.setState({ result: res.data.result[0] });
+        this.setState({
+          result: res.data.result,
+          total: res.data.total,
+          precentage: res.data.precentage
+        });
       })
       .catch(err => {
         swal("Oops", "Something went wrong!!!", "error");
@@ -132,7 +141,7 @@ class UserProfile extends Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <Card>
-                <CardHeader color="success">
+                <CardHeader color="primary">
                   <h4>Sri Lankan under Employement Population Prediction</h4>
                   <p>Select necessary details</p>
                 </CardHeader>
@@ -182,7 +191,9 @@ class UserProfile extends Component {
                           value={this.state.agecategory}
                           onChange={this.handleChange}
                           name="agecategory"
+                          renderValue={() => "15-60"}
                           style={{ width: "40%" }}
+                          disabled
                         >
                           {this.AGECATEGORY.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -245,7 +256,7 @@ class UserProfile extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={2}>
-                      <Button color="success" onClick={this.submitInput}>
+                      <Button color="primary" onClick={this.submitInput}>
                         Predict
                       </Button>
                     </GridItem>
@@ -255,7 +266,9 @@ class UserProfile extends Component {
               </Card>
               <Card>
                 <CardHeader color="success">
-                  <h4>Prediction Result</h4>
+                  <h4>
+                    Prediction Result <small>(Accuary: 55.01%)</small>
+                  </h4>
                 </CardHeader>
                 <CardBody>
                   <div
@@ -266,12 +279,16 @@ class UserProfile extends Component {
                       fontWeight: "bold"
                     }}
                   >
-                    <h1>{this.state.result} Peoples. (Accuary: 55.01%)</h1>
+                    <h1>{this.state.precentage} %. </h1>
+                    <h5>{this.state.result} Under employees.</h5>
+                    <h5>
+                      {this.state.total} Total under employees in the year.
+                    </h5>
                   </div>
                 </CardBody>
               </Card>
               <Card>
-                <CardHeader color="success">
+                <CardHeader color="info">
                   <h4>Model summary</h4>
                 </CardHeader>
                 <CardBody>

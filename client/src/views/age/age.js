@@ -17,11 +17,13 @@ class TableList extends Component {
   constructor() {
     super();
     this.state = {
-      year: "",
-      gender: "",
-      district: "",
-      agecategory: "",
-      result: "0"
+      year: 2020,
+      gender: 1,
+      district: 11,
+      agecategory: 1,
+      result: "0",
+      total: "0",
+      precentage: "0"
     };
   }
 
@@ -71,7 +73,7 @@ class TableList extends Component {
     { code: 44, name: "Vavuniya" }
   ];
 
-  GENDER = [{ id: 0, catagory: "male" }, { id: 2, catagory: "female" }];
+  GENDER = [{ id: 1, catagory: "male" }, { id: 2, catagory: "female" }];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -84,6 +86,8 @@ class TableList extends Component {
       gender: this.state.gender
     };
     console.log(payload);
+    // https://lk-laber-force-data-prediction.herokuapp.com
+    // http://0.0.0.0:5000/
 
     axios
       .post(
@@ -96,7 +100,11 @@ class TableList extends Component {
         //   text: "You have succesfully registered!",
         //   icon: "success"
         // });
-        this.setState({ result: res.data.result[0] });
+        this.setState({
+          result: res.data.result,
+          total: res.data.total,
+          precentage: res.data.precentage
+        });
       })
       .catch(err => {
         swal("Oops", "Something went wrong!!!", "error");
@@ -109,7 +117,7 @@ class TableList extends Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <Card>
-                <CardHeader color="success">
+                <CardHeader color="primary">
                   <h4>Sri Lankan age Structure Population Prediction</h4>
                   <p>Select necessary details</p>
                 </CardHeader>
@@ -222,7 +230,7 @@ class TableList extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={2}>
-                      <Button color="success" onClick={this.submitInput}>
+                      <Button color="primary" onClick={this.submitInput}>
                         Predict
                       </Button>
                     </GridItem>
@@ -232,7 +240,9 @@ class TableList extends Component {
               </Card>
               <Card>
                 <CardHeader color="success">
-                  <h4>Prediction Result</h4>
+                  <h4>
+                    Prediction Result <small>(Accuary: 70.67%)</small>
+                  </h4>
                 </CardHeader>
                 <CardBody>
                   <div
@@ -243,12 +253,14 @@ class TableList extends Component {
                       fontWeight: "bold"
                     }}
                   >
-                    <h1>{this.state.result} Peoples. (Accuary: 70.67%)</h1>
+                    <h1>{this.state.precentage} %. </h1>
+                    <h5>{this.state.result} Population.</h5>
+                    <h5>{this.state.total} Total population in the year.</h5>
                   </div>
                 </CardBody>
               </Card>
               <Card>
-                <CardHeader color="success">
+                <CardHeader color="info">
                   <h4>Model summary</h4>
                 </CardHeader>
                 <CardBody>

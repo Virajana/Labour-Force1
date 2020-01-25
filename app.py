@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import os
@@ -13,7 +13,7 @@ from flask_cors import CORS, cross_origin
 from sklearn.preprocessing import OneHotEncoder
 
 
-# In[2]:
+# In[ ]:
 
 
 age_model = pickle.load(open('models/age.sav', 'rb'))
@@ -21,7 +21,7 @@ unemployee_model = pickle.load(open('models/unemployee.sav', 'rb'))
 under_employee_model = pickle.load(open('models/under_employee.sav', 'rb'))
 
 
-# In[3]:
+# In[ ]:
 
 
 dis_data = [11,12,13,21,22,23,31,32,33,41,42,43,44,45,51,52,53,61,62,71,72,81,82,91,92]
@@ -30,7 +30,7 @@ genders_a_data = [1,1.5,2]
 genders_b_data = [1,2]
 
 
-# In[4]:
+# In[ ]:
 
 
 districts = pd.DataFrame({'district': dis_data})
@@ -39,7 +39,7 @@ genders_a = pd.DataFrame({'gend_a': genders_a_data})
 genders_b = pd.DataFrame({'gend_b': genders_b_data})
 
 
-# In[5]:
+# In[ ]:
 
 
 enced_dis = pd.get_dummies(districts.district, prefix='dis')
@@ -48,14 +48,14 @@ enced_gender_a = pd.get_dummies(genders_a.gend_a, prefix='gend_a')
 enced_gender_b = pd.get_dummies(genders_b.gend_b, prefix='gend_b')
 
 
-# In[6]:
+# In[ ]:
 
 
 app = Flask(__name__, template_folder="client/build", static_folder="client/build/static")
 # app.config['SITE'] = "http://0.0.0.0:5000/"
 
 
-# In[7]:
+# In[ ]:
 
 
 @cross_origin()
@@ -66,12 +66,13 @@ def catch_all(path):
     return render_template('index.html')
 
 
-# In[8]:
+# In[ ]:
 
 
 @cross_origin()
 @app.route('/agestructure',methods=['POST'])
 def predict_age_count():
+    print(request.json)
     input_arr=[]
     input_arr.append(request.json['year'])
     input_arr = input_arr+ list(enced_dis.loc[dis_data.index(request.json['district']),:])
@@ -83,7 +84,13 @@ def predict_age_count():
     print(request.json)
     print(input_arr1)
     predict_result = age_model.predict(input_arr1).tolist()
-    result={"result":predict_result}
+    total = calculate_Total_age_count(request.json['year'])
+    if((predict_result[0]<0 or total<0) and (predict_result[0]>=total)):
+        result={"result":"Unpredictable","total": "Unpredictable", "precentage": "0"}
+        return jsonify(result)
+    
+    precentage = (predict_result[0]/total)*100
+    result={"result":predict_result[0],"total": total, "precentage": precentage}
     return jsonify(result)
 
 # def predict_age_count():
@@ -94,12 +101,13 @@ def predict_age_count():
 # predict_age_count()
 
 
-# In[9]:
+# In[ ]:
 
 
 @cross_origin()
 @app.route('/unemployee',methods=['POST'])
 def predict_unemployee_count():
+    print(request.json)
     input_arr=[]
     input_arr.append(request.json['year'])
     input_arr = input_arr+ list(enced_dis.loc[dis_data.index(request.json['district']),:])
@@ -111,7 +119,13 @@ def predict_unemployee_count():
     print(request.json)
     print(input_arr1)
     predict_result = unemployee_model.predict(input_arr1).tolist()
-    result={"result":predict_result}
+    total = calculate_Total_unemployee_count(request.json['year'])
+    if((predict_result[0]<0 or total<0) and (predict_result[0]>=total)):
+        result={"result":"Unpredictable","total": "Unpredictable", "precentage": "0"}
+        return jsonify(result)
+    precentage = (predict_result[0]/total)*100
+    result={"result":predict_result[0],"total": total, "precentage": precentage}
+    print(result)
     return jsonify(result)
 
 # def predict_unemployee_count():
@@ -122,35 +136,118 @@ def predict_unemployee_count():
 # predict_unemployee_count()
 
 
-# In[10]:
+# In[ ]:
 
 
 @cross_origin()
 @app.route('/underemployee',methods=['POST'])
 def predict_under_employee_count():
+    print(request.json)
     input_arr=[]
     input_arr.append(request.json['year'])
     input_arr = input_arr+ list(enced_dis.loc[dis_data.index(request.json['district']),:])
     input_arr = input_arr+ list(enced_age_cats.loc[age_cats_data.index(request.json['agecategory']),:])
-    input_arr = input_arr+ list(enced_gender_b.loc[genders_a_data.index(request.json['gender']),:])
+    input_arr = input_arr+ list(enced_gender_b.loc[genders_b_data.index(request.json['gender']),:])
     
     input_arr1=[]
     input_arr1.append(input_arr)
     print(request.json)
     print(input_arr1)
     predict_result = under_employee_model.predict(input_arr1).tolist()
-    result={"result":predict_result}
+    total = calculate_Total_under_employee_count(request.json['year'])
+    if((predict_result[0]<0 or total<0) and (predict_result[0]>=total)):
+        result={"result":"Unpredictable","total": "Unpredictable", "precentage": "0"}
+        return jsonify(result)
+    precentage = (predict_result[0]/total)*100
+    result={"result":predict_result[0],"total": total, "precentage": precentage}
     return jsonify(result)
 
 # def predict_under_employee_count():
 #     input_arr1=[[2030, 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1]]
 #     predict_result = under_employee_model.predict(input_arr1).tolist()
-#     result={"result":predict_result}
+#     total = calculate_Total_under_employee_count(2030)
+#     precentage = (predict_result[0]/total)*100
+#     result={"result":predict_result,"total": total, "precentage": precentage}
 #     print(result)
 # predict_under_employee_count()
 
 
-# In[11]:
+# In[ ]:
+
+
+def calculate_Total_under_employee_count(year):
+    total = 0
+    for i in dis_data:
+        for j in [2]:
+            for k in genders_b_data:
+                input_arr=[year]
+                input_arr = input_arr + list(enced_dis.loc[dis_data.index(i),:])
+                input_arr = input_arr+ list(enced_age_cats.loc[age_cats_data.index(j),:])
+                input_arr = input_arr+ list(enced_gender_b.loc[genders_b_data.index(k),:])
+#                 print(year,i,j,k)
+                input_arr = [input_arr]
+#                 print(input_arr)
+                predict_result = under_employee_model.predict(input_arr).tolist()
+                
+                total = total + float(predict_result[0])
+                
+    print(total)
+    return total
+                
+# calculate_Total_under_employee_count(2020)
+
+
+# In[ ]:
+
+
+def calculate_Total_unemployee_count(year):
+    total = 0
+    for i in dis_data:
+        for j in [2]: #since only age category 2 is considered
+            for k in genders_b_data:
+                input_arr=[year]
+                input_arr = input_arr + list(enced_dis.loc[dis_data.index(i),:])
+                input_arr = input_arr+ list(enced_age_cats.loc[age_cats_data.index(j),:])
+                input_arr = input_arr+ list(enced_gender_a.loc[genders_b_data.index(k),:])
+#                 print(year,i,j,k)
+                input_arr = [input_arr]
+#                 print(input_arr)
+                predict_result = unemployee_model.predict(input_arr).tolist()
+                
+                total = total + float(predict_result[0])
+                
+    print(total)
+    return total
+                
+# calculate_Total_unemployee_count(2020)
+
+
+# In[ ]:
+
+
+def calculate_Total_age_count(year):
+    total = 0
+    for i in dis_data:
+        for j in age_cats_data: #since all age categories are considered
+            for k in genders_b_data:
+                input_arr=[year]
+                input_arr = input_arr + list(enced_dis.loc[dis_data.index(i),:])
+                input_arr = input_arr+ list(enced_age_cats.loc[age_cats_data.index(j),:])
+                input_arr = input_arr+ list(enced_gender_a.loc[genders_b_data.index(k),:])
+#                 print(year,i,j,k)
+                input_arr = [input_arr]
+#                 print(input_arr)
+                predict_result = age_model.predict(input_arr).tolist()
+                
+                total = total + float(predict_result[0])
+                
+    print(total)
+    return total
+                
+# calculate_Total_age_count(2023)
+
+
+# In[ ]:
 
 
 if __name__ == '__main__':

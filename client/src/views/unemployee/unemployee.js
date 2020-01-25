@@ -17,11 +17,13 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      year: "",
-      gender: "",
-      district: "",
-      agecategory: "",
-      result: "0"
+      year: 2020,
+      gender: 1,
+      district: 11,
+      agecategory: 2,
+      result: "0",
+      total: "0",
+      precentage: "0"
     };
   }
 
@@ -71,7 +73,7 @@ class Dashboard extends Component {
     { code: 44, name: "Vavuniya" }
   ];
 
-  GENDER = [{ id: 0, catagory: "Male" }, { id: 2, catagory: "Female" }];
+  GENDER = [{ id: 1, catagory: "Male" }, { id: 2, catagory: "Female" }];
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -91,7 +93,11 @@ class Dashboard extends Component {
         payload
       )
       .then(res => {
-        this.setState({ result: res.data.result[0] });
+        this.setState({
+          result: res.data.result,
+          total: res.data.total,
+          precentage: res.data.precentage
+        });
       })
       .catch(err => {
         swal("Oops", "Something went wrong!!!", "error");
@@ -104,7 +110,7 @@ class Dashboard extends Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <Card>
-                <CardHeader color="success">
+                <CardHeader color="primary">
                   <h4>Sri Lankan unemployement Population Prediction</h4>
                   <p>Select necessary details</p>
                 </CardHeader>
@@ -154,7 +160,9 @@ class Dashboard extends Component {
                           value={this.state.agecategory}
                           onChange={this.handleChange}
                           name="agecategory"
+                          renderValue={() => "15-60"}
                           style={{ width: "40%" }}
+                          disabled
                         >
                           {this.AGECATEGORY.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -217,7 +225,7 @@ class Dashboard extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={2}>
-                      <Button color="success" onClick={this.submitInput}>
+                      <Button color="primary" onClick={this.submitInput}>
                         Predict
                       </Button>
                     </GridItem>
@@ -227,7 +235,9 @@ class Dashboard extends Component {
               </Card>
               <Card>
                 <CardHeader color="success">
-                  <h4>Prediction Result</h4>
+                  <h4>
+                    Prediction Result <small>(Accuary: 60.89%)</small>
+                  </h4>
                 </CardHeader>
                 <CardBody>
                   <div
@@ -238,12 +248,14 @@ class Dashboard extends Component {
                       fontWeight: "bold"
                     }}
                   >
-                    <h1>{this.state.result} Peoples. (Accuary: 60.89%)</h1>
+                    <h1>{this.state.precentage} %. </h1>
+                    <h5>{this.state.result} Unemployees.</h5>
+                    <h5>{this.state.total} Total unemployees in the year.</h5>
                   </div>
                 </CardBody>
               </Card>
               <Card>
-                <CardHeader color="success">
+                <CardHeader color="info">
                   <h4>Model summary</h4>
                 </CardHeader>
                 <CardBody>
