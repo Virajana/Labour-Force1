@@ -117,7 +117,7 @@ class TableList extends Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <Card>
-                <CardHeader color="primary">
+                <CardHeader color="info">
                   <h4>Sri Lankan age Structure Population Prediction</h4>
                   <p>Select necessary details</p>
                 </CardHeader>
@@ -230,7 +230,7 @@ class TableList extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={2}>
-                      <Button color="primary" onClick={this.submitInput}>
+                      <Button color="info" onClick={this.submitInput}>
                         Predict
                       </Button>
                     </GridItem>
@@ -264,7 +264,7 @@ class TableList extends Component {
                   <h4>Model summary</h4>
                 </CardHeader>
                 <CardBody>
-                  <h4>Total records: 1041</h4>
+                  {/*<h4>Total records: 1041</h4>*/}
                   <h4>Features: 32</h4>
                   <h4>
                     Model: Polynomial interpolated ARDRegression Model without
