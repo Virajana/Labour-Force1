@@ -72,7 +72,7 @@ const sidebarStyle = theme => ({
       height: "1px",
       right: "15px",
       width: "calc(100% - 30px)",
-      backgroundColor: "rgba(" + hexToRgb(grayColor[6]) + ", 0.3)"
+      backgroundColor: "rgba(" + hexToRgb(grayColor[6]) + ", 0.9)"
     }
   },
   logoLink: {
@@ -124,7 +124,7 @@ const sidebarStyle = theme => ({
       height: "100%",
       content: '""',
       display: "block",
-      background: blackColor,
+      background: 'navy',
       opacity: ".8"
     }
   },

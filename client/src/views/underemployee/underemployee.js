@@ -141,7 +141,7 @@ class UserProfile extends Component {
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
               <Card>
-                <CardHeader color="primary">
+                <CardHeader color="info">
                   <h4>Sri Lankan under Employement Population Prediction</h4>
                   <p>Select necessary details</p>
                 </CardHeader>
@@ -256,7 +256,7 @@ class UserProfile extends Component {
                       </FormControl>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={2}>
-                      <Button color="primary" onClick={this.submitInput}>
+                      <Button color="info" onClick={this.submitInput}>
                         Predict
                       </Button>
                     </GridItem>
@@ -292,7 +292,7 @@ class UserProfile extends Component {
                   <h4>Model summary</h4>
                 </CardHeader>
                 <CardBody>
-                  <h4>Total records: 800</h4>
+                  {/*<h4>Total records: 800</h4>*/}
                   <h4>Features: 31</h4>
                   <h4>
                     Model: Polynomial interpolated MLPRegressor (Neural network)
