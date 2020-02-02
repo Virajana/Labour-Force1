@@ -111,8 +111,8 @@ class Dashboard extends Component {
             <GridItem xs={12} sm={12} md={12}>
               <Card>
                 <CardHeader color="info">
-                  <h4>Sri Lankan unemployement Population Prediction</h4>
-                  <p>Select necessary details</p>
+                  <h3>Sri Lankan unemployement Population Prediction</h3>
+                  <h5>Select necessary details</h5>
                 </CardHeader>
                 <CardBody>
                   <GridContainer>
@@ -125,7 +125,7 @@ class Dashboard extends Component {
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          Select the prediction year
+                          <h5>Select the prediction year</h5>
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -133,7 +133,7 @@ class Dashboard extends Component {
                           value={this.state.year}
                           onChange={this.handleChange}
                           name="year"
-                          style={{ width: "40%" }}
+                          style={{ width: "30%" }}
                         >
                           {this.YEAR.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -152,7 +152,7 @@ class Dashboard extends Component {
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          Select the age category
+                         <h5>Select the age category</h5>
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -161,7 +161,7 @@ class Dashboard extends Component {
                           onChange={this.handleChange}
                           name="agecategory"
                           renderValue={() => "15-60"}
-                          style={{ width: "40%" }}
+                          style={{ width: "30%" }}
                           disabled
                         >
                           {this.AGECATEGORY.map(item => (
@@ -181,7 +181,7 @@ class Dashboard extends Component {
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          Select the district
+                          <h5>Select the district</h5>
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -189,7 +189,7 @@ class Dashboard extends Component {
                           value={this.state.district}
                           onChange={this.handleChange}
                           name="district"
-                          style={{ width: "40%" }}
+                          style={{ width: "30%" }}
                         >
                           {this.DISTRICT.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -207,7 +207,7 @@ class Dashboard extends Component {
                         }}
                       >
                         <InputLabel id="demo-simple-select-filled-label">
-                          Select the gender
+                         <h5>Select the gender</h5>
                         </InputLabel>
                         <Select
                           labelId="demo-simple-select-filled-label"
@@ -215,7 +215,7 @@ class Dashboard extends Component {
                           value={this.state.gender}
                           onChange={this.handleChange}
                           name="gender"
-                          style={{ width: "40%" }}
+                          style={{ width: "30%" }}
                         >
                           {this.GENDER.map(item => (
                             // eslint-disable-next-line react/jsx-key
@@ -235,9 +235,9 @@ class Dashboard extends Component {
               </Card>
               <Card>
                 <CardHeader color="success">
-                  <h4>
+                  <h3>
                     Prediction Result <small>(Accuary: 60.89%)</small>
-                  </h4>
+                  </h3>
                 </CardHeader>
                 <CardBody>
                   <div
@@ -256,7 +256,7 @@ class Dashboard extends Component {
               </Card>
               <Card>
                 <CardHeader color="info">
-                  <h4>Model summary</h4>
+                  <h3>Model summary</h3>
                 </CardHeader>
                 <CardBody>
                   {/*<h4>Total records: 1039</h4>*/}

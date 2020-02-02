@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-dashboard-react/components/headerStyle.js";
+import CardHeader from "../Card/CardHeader";
 
 const useStyles = makeStyles(styles);
 
@@ -29,9 +30,13 @@ export default function Header(props) {
     <AppBar className={classes.appBar + appBarClasses}>
       <div className={classes.flex}>
         {/* Here we create navbar brand, based on route name */}
-        <Button color="transparent" href="#" className={classes.title}>
-          {makeBrand()}
-        </Button>
+        {/*<Button color="transparent" href="#" className={classes.title}>*/}
+        {/*  {makeBrand()}*/}
+        {/*</Button>*/}
+        <CardHeader>
+          <h3  style={{fontWeight: 'bold'}}>{makeBrand()}</h3>
+
+        </CardHeader>
       </div>
     </AppBar>
   );
