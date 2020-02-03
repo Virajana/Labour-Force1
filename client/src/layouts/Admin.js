@@ -50,7 +50,7 @@ export default function Admin({ ...rest }) {
   // const [color, setColor] = React.useState("blue");
   // const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
- 
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -94,7 +94,7 @@ export default function Admin({ ...rest }) {
         {...rest}
       />
       <div className={classes.mainPanel} ref={mainPanel}>
-        <Navbar
+        <Navbar style={{color:'navy'}}
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}

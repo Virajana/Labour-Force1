@@ -13,14 +13,14 @@ export default function Dashboard({...rest}) {
         <div className={classes.wrapper}>
             <div className="bgimg w3-display-container w3-animate-opacity w3-text-white">
                 <div className="w3-display-middle">
-                    <h1 className="w3-jumbo w3-animate-top" style={{textAlign: "center"}
-                    }>SRI LANKAN LABOR FORCE SURVAY DATA PREDICTION</h1>
+                    <h1 className="w3-jumbo w3-animate-top" style={{textAlign: "center", color:"blue"}
+                    }>SRI LANKAN LABOR FORCE SURVEY DATA PREDICTION</h1>
                     <Link to="/admin/unemployment">
                         <button className="button button3">ENTER</button>
                     </Link>
                 </div>
                 <div className="w3-display-bottomleft w3-padding-large">
-                    {/* Powered by <a href="#">RDSlabs</a> */}
+                    {/* Powered by <a href="#">RSDlabs</a> */}
                 </div>
             </div>
         </div>
